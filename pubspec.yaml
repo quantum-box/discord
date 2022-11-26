@@ -42,6 +42,7 @@ dependencies:
   provider: ^6.0.4
   state_notifier: ^0.7.2+1
   flutter_hooks_lint_plugin: ^0.6.1
+  flutter_state_notifier: ^0.7.1
 
 dev_dependencies:
   flutter_test:
