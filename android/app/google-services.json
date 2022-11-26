@@ -1,0 +1,46 @@
+{
+  "project_info": {
+    "project_number": "418057749611",
+    "project_id": "nextsns-39cd7",
+    "storage_bucket": "nextsns-39cd7.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:418057749611:android:2b28ebee45377bd5ee9d2e",
+        "android_client_info": {
+          "package_name": "com.quantumbox.discord_clone"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "418057749611-j2ks0rv53cv6e82qk5ipvmqk3mhlb2gr.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCqhLQhymU3xCZSJeTzZfhQTiDiQaKjJ1w"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "418057749611-j2ks0rv53cv6e82qk5ipvmqk3mhlb2gr.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "418057749611-purm4qn3ebrhrd41qc0v2553q3j7eg56.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.quantumbox.discordClone"
+              }
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
