@@ -1,12 +1,11 @@
 import 'package:discord_clone/layout.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/src/widgets/container.dart';
-import 'package:flutter/src/widgets/framework.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:provider/provider.dart';
+import 'package:go_router/go_router.dart';
 
-import 'appuser/state.dart';
+import '../models/appuser/state.dart';
 
 class AuthPage extends HookWidget {
   AuthPage({super.key});
@@ -51,6 +50,10 @@ class AuthPage extends HookWidget {
       try {
         await FirebaseAuth.instance.sendPasswordResetEmail(email: email);
       } catch (e) {}
+    }
+
+    if (context.watch<User?>() != null) {
+      context.go("/");
     }
 
     return Layout(

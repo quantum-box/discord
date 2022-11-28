@@ -1,4 +1,4 @@
-import 'package:discord_clone/appuser/entity.dart';
+import 'package:discord_clone/models/appuser/entity.dart';
 import 'package:state_notifier/state_notifier.dart';
 
 class AppUserState extends StateNotifier<AppUser?> {

@@ -1,13 +1,11 @@
-import 'package:discord_clone/appuser/state.dart';
-import 'package:discord_clone/auth_page.dart';
-import 'package:discord_clone/layout.dart';
-import 'package:discord_clone/theme.dart';
+import 'package:discord_clone/models/appuser/state.dart';
+import 'package:discord_clone/router.dart';
 import 'package:flutter/material.dart';
 
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter_state_notifier/flutter_state_notifier.dart';
 import 'package:provider/provider.dart';
-import 'appuser/entity.dart';
+import 'models/appuser/entity.dart';
 import 'firebase_options.dart';
 
 import 'package:firebase_auth/firebase_auth.dart';
@@ -31,47 +29,19 @@ class MyApp extends StatelessWidget {
       create: (context) => FirebaseAuth.instance.authStateChanges(),
       child: StateNotifierProvider<AppUserState, AppUser?>(
         create: (context) => AppUserState(),
-        child: const ThemeProvider(
-          child: MyHomePage(),
+        child: MaterialApp.router(
+          title: 'Flutter Demo',
+          theme: ThemeData.light(
+            useMaterial3: true,
+            // primarySwatch: Colors.teal,
+          ),
+          darkTheme: ThemeData.dark(
+            useMaterial3: true,
+          ),
+          themeMode: ThemeMode.dark,
+          routerConfig: router,
         ),
       ),
-    );
-  }
-}
-
-class MyHomePage extends StatelessWidget {
-  const MyHomePage({super.key});
-  @override
-  Widget build(BuildContext context) {
-    final user = context.watch<User?>();
-    if (user == null) {
-      return AuthPage();
-    }
-    // This method is rerun every time setState is called, for instance as done
-    // by the _incrementCounter method above.
-    //
-    // The Flutter framework has been optimized to make rerunning build methods
-    // fast, so that you can just rebuild anything that needs updating rather
-    // than having to individually change instances of widgets.
-    return Layout(
-      title: "discord clone",
-      child: Center(
-        // Center is a layout widget. It takes a single child and positions it
-        // in the middle of the parent.
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: <Widget>[
-            const Text(
-              'You have pushed the button this many times:',
-            ),
-            Text(
-              '1',
-              style: Theme.of(context).textTheme.headline4,
-            ),
-          ],
-        ),
-      ),
-// This trailing comma makes auto-formatting nicer for build methods.
     );
   }
 }
