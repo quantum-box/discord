@@ -1,5 +1,7 @@
-import 'package:discord_clone/pages/auth_page.dart';
-import 'package:discord_clone/pages/timeline.dart';
+import 'package:discord_clone/models/appuser/entity.dart';
+import 'package:discord_clone/models/appuser/state.dart';
+import 'package:discord_clone/pages/auth.dart';
+import 'package:discord_clone/pages/home.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:provider/provider.dart';
 
@@ -9,11 +11,12 @@ final GoRouter router = GoRouter(
   initialLocation: "/",
   redirect: (context, state) {
     final user = context.watch<User?>();
-    print(user);
     if (user == null) {
       return "/auth";
     }
-    return null;
+    final appuser = context.watch<AppUserState>();
+    appuser.signIn(user.uid);
+    return "/";
   },
   routes: <RouteBase>[
     GoRoute(

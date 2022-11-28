@@ -1,5 +1,6 @@
 import 'package:discord_clone/models/appuser/state.dart';
 import 'package:discord_clone/router.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 
 import 'package:firebase_core/firebase_core.dart';

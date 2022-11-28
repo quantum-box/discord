@@ -10,37 +10,54 @@ class Tweet extends HookWidget {
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: const EdgeInsets.all(8.0),
+      padding: const EdgeInsets.only(top: 16, left: 8, right: 8),
       child: Column(
         children: [
           Row(
+            crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              // ClipRRect(
-              //   borderRadius: BorderRadius.circular(8.0),
-              //   child: Image.network(
-              //     "https://firebasestorage.googleapis.com/v0/b/web3-flutter.appspot.com/o/IMG_3626.JPG?alt=media&token=8f450941-dfa9-43e0-86e0-a93d84c8bef0",
-              //     width: 30,
-              //     height: 30,
-              //     fit: BoxFit.cover,
-              //   ),
-              // ),
-              const SizedBox(width: 10),
-              Text(entity.displayName == "" ? "github" : entity.displayName),
+              ClipRRect(
+                borderRadius: BorderRadius.circular(20),
+                child: Container(
+                  width: 40,
+                  height: 40,
+                  color: Colors.blueGrey.shade600,
+                ),
+              ),
+              const SizedBox(width: 16),
+              Expanded(
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Text(
+                      entity.displayName == "" ? "github" : entity.displayName,
+                      style:
+                          TextStyle(fontSize: 18, fontWeight: FontWeight.w600),
+                    ),
+                    const SizedBox(height: 4),
+                    Text(entity.text),
+                  ],
+                ),
+              ),
             ],
           ),
-          // Text(entity.text),
-
-          Row(
-            children: [
-              IconButton(
-                  onPressed: () {},
-                  icon: const Icon(Icons.bubble_chart_outlined)),
-              IconButton(
-                  onPressed: () {}, icon: const Icon(Icons.thumb_up_sharp))
-            ],
-          )
+          const SizedBox(height: 12),
+          bottomIcons()
         ],
       ),
+    );
+  }
+
+  Row bottomIcons() {
+    return Row(
+      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+      children: [
+        IconButton(onPressed: () {}, icon: Icon(Icons.format_quote)),
+        IconButton(
+            onPressed: () {}, icon: const Icon(Icons.bubble_chart_outlined)),
+        IconButton(onPressed: () {}, icon: const Icon(Icons.thumb_up_sharp)),
+        IconButton(onPressed: () {}, icon: const Icon(Icons.share))
+      ],
     );
   }
 }

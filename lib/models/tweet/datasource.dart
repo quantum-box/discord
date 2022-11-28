@@ -12,10 +12,10 @@ class TweetDatasource {
   CollectionReference get col => collection;
 
   Future<void> add(TweetEntity entity) =>
-      collection.add(Map<String, dynamic>.from(entity.toMap()));
+      collection.doc(entity.id).set(Map<String, dynamic>.from(entity.toMap()));
 
   Stream<List<TweetEntity>> streamList() =>
       collection.snapshots().map((event) =>
           event.docs.map((e) => TweetEntity.fromMap(e.data() as Map)).toList()
-            ..sort(((a, b) => a.sortNo!.compareTo(b.sortNo))));
+            ..sort(((a, b) => b.sortNo!.compareTo(a.sortNo))));
 }
