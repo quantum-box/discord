@@ -52,10 +52,6 @@ class AuthPage extends HookWidget {
       } catch (e) {}
     }
 
-    if (context.watch<User?>() != null) {
-      context.go("/");
-    }
-
     return Layout(
         title: "sign in",
         child: Padding(
