@@ -52,11 +52,31 @@ class Tweet extends HookWidget {
     return Row(
       mainAxisAlignment: MainAxisAlignment.spaceEvenly,
       children: [
-        IconButton(onPressed: () {}, icon: Icon(Icons.format_quote)),
         IconButton(
-            onPressed: () {}, icon: const Icon(Icons.bubble_chart_outlined)),
-        IconButton(onPressed: () {}, icon: const Icon(Icons.thumb_up_sharp)),
-        IconButton(onPressed: () {}, icon: const Icon(Icons.share))
+          onPressed: () {},
+          icon: const Icon(
+            Icons.format_quote,
+            size: 20,
+          ),
+        ),
+        IconButton(
+          onPressed: () {},
+          icon: const Icon(Icons.bubble_chart_outlined, size: 20),
+        ),
+        IconButton(
+          onPressed: () {},
+          icon: const Icon(
+            Icons.thumb_up_sharp,
+            size: 20,
+          ),
+        ),
+        IconButton(
+          onPressed: () {},
+          icon: const Icon(
+            Icons.share,
+            size: 20,
+          ),
+        )
       ],
     );
   }

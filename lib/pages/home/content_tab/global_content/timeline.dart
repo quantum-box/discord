@@ -23,19 +23,9 @@ class TimelineTab extends HookWidget {
     return Column(
       mainAxisAlignment: MainAxisAlignment.center,
       children: <Widget>[
-        SizedBox(
-          height: 60,
-          child: Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 8),
-            child: Row(
-              crossAxisAlignment: CrossAxisAlignment.center,
-              mainAxisSize: MainAxisSize.max,
-              children: [
-                Text(context.watch<HomeState>().currentChannel),
-              ],
-            ),
-          ),
-        ),
+        MediaQuery.of(context).size.width > 560
+            ? serverAppBar(context)
+            : Container(),
         Expanded(
           child: StreamBuilder(
             stream: TweetDatasource(user.uid).streamList(),
@@ -116,6 +106,22 @@ class TimelineTab extends HookWidget {
           ),
         )
       ],
+    );
+  }
+
+  SizedBox serverAppBar(BuildContext context) {
+    return SizedBox(
+      height: 60,
+      child: Padding(
+        padding: const EdgeInsets.symmetric(horizontal: 8),
+        child: Row(
+          crossAxisAlignment: CrossAxisAlignment.center,
+          mainAxisSize: MainAxisSize.max,
+          children: [
+            Text(context.watch<HomeState>().currentChannel),
+          ],
+        ),
+      ),
     );
   }
 }

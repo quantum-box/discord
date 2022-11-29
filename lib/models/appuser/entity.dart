@@ -3,21 +3,25 @@ import 'package:flutter/material.dart';
 @immutable
 class AppUser {
   final String id;
+  final String displayName;
 
   final List<AppUserServer>? servers;
 
   const AppUser({
     required this.id,
+    required this.displayName,
     this.servers,
   });
 
   factory AppUser.fromMap(Map map) => AppUser(
         id: map['id'],
+        displayName: map['displayName'],
         servers: map['servers'],
       );
 
-  Map toMap() => {
+  Map<String, dynamic> toMap() => {
         'id': id,
+        'displayName': displayName,
         "servers":
             servers != null ? servers!.map((e) => e.toMap()).toList() : null,
       };

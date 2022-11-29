@@ -1,3 +1,4 @@
+import 'package:discord_clone/models/appuser/datasource.dart';
 import 'package:discord_clone/pages/home/status_tab.dart';
 import 'package:discord_clone/parts/layout.dart';
 import 'package:discord_clone/models/appuser/entity.dart';
@@ -15,12 +16,15 @@ import 'package:provider/provider.dart';
 import '../models/tweet/entity.dart';
 
 class HomePage extends HookWidget {
-  static Widget withDependecy() => MultiProvider(
+  static Widget withDependecy(String uid) => MultiProvider(
         providers: [
           ChangeNotifierProvider(
             create: (context) => HomeState(),
             child: const HomePage(),
           ),
+          StreamProvider<AppUser?>(
+              create: ((context) => AppUserDatasource(uid).streamObject()),
+              initialData: null),
           StreamProvider<List<TweetEntity>>(
               create: ((context) =>
                   TweetDatasource(context.watch<User>().uid).streamList()),

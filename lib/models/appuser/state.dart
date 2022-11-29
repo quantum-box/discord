@@ -4,6 +4,7 @@ import 'package:state_notifier/state_notifier.dart';
 class AppUserState extends StateNotifier<AppUser?> {
   AppUserState() : super(null);
 
-  signIn(String id) => state = AppUser(id: id);
+  signIn(String id, String displayName) =>
+      state = AppUser(id: id, displayName: displayName);
   signOut() => state = null;
 }

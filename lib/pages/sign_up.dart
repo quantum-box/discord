@@ -7,8 +7,8 @@ import 'package:go_router/go_router.dart';
 
 import '../models/appuser/state.dart';
 
-class AuthPage extends HookWidget {
-  AuthPage({super.key});
+class SignUpPage extends HookWidget {
+  SignUpPage({super.key});
 
   final formKey = GlobalKey<FormState>();
 
@@ -16,17 +16,8 @@ class AuthPage extends HookWidget {
   Widget build(BuildContext context) {
     final emailController = useTextEditingController();
     final passwordController = useTextEditingController();
+    final displayNameController = useTextEditingController();
     final appUserState = context.read<AppUserState>();
-
-    Future<void> signIn() async {
-      try {
-        final credential = await FirebaseAuth.instance
-            .signInWithEmailAndPassword(
-                email: emailController.text, password: passwordController.text);
-        final User? user = credential.user;
-        appUserState.signIn(user?.uid ?? "");
-      } catch (e) {}
-    }
 
     Future<void> signUp() async {
       print("signin");
@@ -38,15 +29,16 @@ class AuthPage extends HookWidget {
             .createUserWithEmailAndPassword(
                 email: emailController.text, password: passwordController.text);
         final User? user = credential.user;
-
-        appUserState.signIn(user?.uid ?? "");
+        if (user == null) {
+          return;
+        }
+        appUserState.signIn(user?.uid ?? "", user.displayName ?? '');
       } on FirebaseAuthException catch (e) {
         print(e.code);
         if (e.code == 'weak-password') {
           print('The password provided is too weak.');
         } else if (e.code == 'email-already-in-use') {
           print('The account already exists for that email.');
-          await signIn();
           return;
         }
         ScaffoldMessenger.of(context).showSnackBar(SnackBar(

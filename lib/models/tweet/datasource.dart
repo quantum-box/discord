@@ -17,5 +17,5 @@ class TweetDatasource {
   Stream<List<TweetEntity>> streamList() =>
       collection.snapshots().map((event) =>
           event.docs.map((e) => TweetEntity.fromMap(e.data() as Map)).toList()
-            ..sort(((a, b) => b.sortNo!.compareTo(a.sortNo))));
+            ..sort(((a, b) => b.sortNo.compareTo(a.sortNo))));
 }

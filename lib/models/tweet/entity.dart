@@ -7,7 +7,7 @@ class TweetEntity {
   final String text;
   // final List<String> goodUsers;
 
-  int get sort => sortNo ?? 0;
+  int get sort => sortNo;
   const TweetEntity({
     required this.id,
     required this.userId,
