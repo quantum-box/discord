@@ -12,28 +12,28 @@ import 'package:state_notifier/state_notifier.dart';
 
 import 'package:provider/provider.dart';
 
-class TimelinePage extends HookWidget {
-  const TimelinePage({super.key});
+class HomePage extends HookWidget {
+  static WithDependecy() => ChangeNotifierProvider(
+        create: (context) => HomeState(),
+        child: const HomePage(),
+      );
+  const HomePage({super.key});
   @override
   Widget build(BuildContext context) {
     final appuser = context.watch<AppUser?>();
-    print(appuser);
-    return ChangeNotifierProvider(
-      create: (context) => HomeState(),
-      child: const Layout(
-        title: "discord clone",
-        child: DefaultTabController(
-          initialIndex: 1,
-          length: 3,
-          child: TabBarView(
-            children: [
-              MenuTab(),
-              ContentTab(),
-              Center(
-                child: Text("data"),
-              )
-            ],
-          ),
+    return Layout(
+      title: context.watch<HomeState>().currentChannel,
+      child: const DefaultTabController(
+        initialIndex: 1,
+        length: 3,
+        child: TabBarView(
+          children: [
+            MenuTab(),
+            ContentTab(),
+            Center(
+              child: Text("data"),
+            )
+          ],
         ),
       ),
     );

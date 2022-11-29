@@ -21,7 +21,7 @@ final GoRouter router = GoRouter(
   routes: <RouteBase>[
     GoRoute(
       path: "/",
-      builder: (context, state) => const TimelinePage(),
+      builder: (context, state) => HomePage.WithDependecy(),
     ),
     GoRoute(
       path: "/auth",

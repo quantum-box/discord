@@ -20,7 +20,7 @@ class MenuTab extends HookWidget {
     final homeState = context.watch<HomeState>();
     return Row(
       children: [
-        Container(
+        SizedBox(
           width: 60,
           child: ListView(
             children: [
@@ -61,6 +61,7 @@ class MenuTab extends HookWidget {
   }
 
   Widget _serverCard(String serverId) {
+    final context = useContext();
     if (serverId == 'encripted') {
       return Card(
         child: Padding(
@@ -103,8 +104,11 @@ class MenuTab extends HookWidget {
               ),
               Divider(color: Colors.blueGrey.shade200),
               SelectBox(
-                selected: true,
-                onTap: () {},
+                selected:
+                    context.watch<HomeState>().currentChannel == "timeline",
+                onTap: () {
+                  context.read<HomeState>().choiceChannel("timeline");
+                },
                 child: Padding(
                   padding: const EdgeInsets.all(16),
                   child: Row(
@@ -122,7 +126,11 @@ class MenuTab extends HookWidget {
                 ),
               ),
               SelectBox(
-                onTap: () {},
+                selected:
+                    context.watch<HomeState>().currentChannel == "profile",
+                onTap: () {
+                  context.read<HomeState>().choiceChannel("profile");
+                },
                 child: Padding(
                   padding: const EdgeInsets.all(16),
                   child: Row(
@@ -140,7 +148,11 @@ class MenuTab extends HookWidget {
                 ),
               ),
               SelectBox(
-                onTap: () {},
+                selected:
+                    context.watch<HomeState>().currentChannel == "bookmark",
+                onTap: () {
+                  context.read<HomeState>().choiceChannel("bookmark");
+                },
                 child: Padding(
                   padding: const EdgeInsets.all(16),
                   child: Row(
