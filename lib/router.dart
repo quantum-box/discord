@@ -21,7 +21,7 @@ final GoRouter router = GoRouter(
   routes: <RouteBase>[
     GoRoute(
       path: "/",
-      builder: (context, state) => HomePage.WithDependecy(),
+      builder: (context, state) => HomePage.withDependecy(),
     ),
     GoRoute(
       path: "/auth",

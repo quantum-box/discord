@@ -14,6 +14,14 @@ class GlobalServerTab extends StatelessWidget {
     switch (homeState.currentChannel) {
       case 'timeline':
         return const TimelineTab();
+      case 'bookmark':
+        return const Center(
+          child: Text('bookmark'),
+        );
+      case 'profile':
+        return const Center(
+          child: Text('profile'),
+        );
       default:
         return Container();
     }

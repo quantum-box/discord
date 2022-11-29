@@ -1,6 +1,8 @@
+import 'package:discord_clone/models/home/state.dart';
 import 'package:discord_clone/models/tweet/datasource.dart';
 import 'package:discord_clone/models/tweet/entity.dart';
 import 'package:discord_clone/models/tweet/widget.dart';
+import 'package:discord_clone/parts/text_field.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
@@ -21,6 +23,19 @@ class TimelineTab extends HookWidget {
     return Column(
       mainAxisAlignment: MainAxisAlignment.center,
       children: <Widget>[
+        SizedBox(
+          height: 60,
+          child: Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 8),
+            child: Row(
+              crossAxisAlignment: CrossAxisAlignment.center,
+              mainAxisSize: MainAxisSize.max,
+              children: [
+                Text(context.watch<HomeState>().currentChannel),
+              ],
+            ),
+          ),
+        ),
         Expanded(
           child: StreamBuilder(
             stream: TweetDatasource(user.uid).streamList(),
@@ -35,27 +50,30 @@ class TimelineTab extends HookWidget {
                   child: Text("tweets is not found"),
                 );
               }
-              return ListView(
-                children: snapshot.data!
-                    .map((e) => Column(children: [
-                          Tweet(e),
-                          Divider(
-                            color: Colors.grey.shade600,
-                          )
-                        ]))
-                    .toList(),
+              return Padding(
+                padding: const EdgeInsets.symmetric(horizontal: 16),
+                child: ListView(
+                  children: snapshot.data!
+                      .map((e) => Column(children: [
+                            Tweet(e),
+                            Divider(
+                              color: Colors.grey.shade600,
+                            )
+                          ]))
+                      .toList(),
+                ),
               );
             },
           ),
         ),
-        Card(
+        SizedBox(
           child: Padding(
             padding:
-                const EdgeInsets.only(left: 16, right: 16, bottom: 40, top: 16),
+                const EdgeInsets.only(top: 0, left: 12, right: 12, bottom: 12),
             child: Row(
               children: [
                 Expanded(
-                  child: TweetTextField(
+                  child: NTextField(
                     controller: controller,
                   ),
                 ),
@@ -98,31 +116,6 @@ class TimelineTab extends HookWidget {
           ),
         )
       ],
-    );
-  }
-}
-
-class TweetTextField extends StatelessWidget {
-  final TextEditingController controller;
-
-  const TweetTextField({super.key, required this.controller});
-
-  @override
-  Widget build(BuildContext context) {
-    return SizedBox(
-      height: 48,
-      child: TextField(
-        controller: controller,
-        decoration: InputDecoration(
-          labelText: "send message",
-          filled: true,
-          fillColor: Colors.grey.shade700,
-          border: OutlineInputBorder(
-            borderRadius: BorderRadius.circular(10),
-            borderSide: BorderSide.none,
-          ),
-        ),
-      ),
     );
   }
 }

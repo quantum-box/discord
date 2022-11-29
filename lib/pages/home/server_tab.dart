@@ -20,43 +20,46 @@ class MenuTab extends HookWidget {
     final homeState = context.watch<HomeState>();
     return Row(
       children: [
-        SizedBox(
-          width: 60,
-          child: ListView(
-            children: [
-              const SizedBox(height: 8),
-              ServerContainer(
-                  isSelected: homeState.currentServer == "encripted",
-                  child: EncriptedServerIcon(
-                    onTap: () {
-                      print("called");
-                      context.read<HomeState>().choiceServer('encripted');
-                    },
-                  )),
-              ServerContainer(
-                  isSelected: homeState.currentServer == 'global',
-                  child: GlobalServerIcon(
-                    onTap: () {
-                      context.read<HomeState>().choiceServer('global');
-                    },
-                  )),
-              ...[AppUserServer(id: "id", name: "name", iconUrl: "iconUrl")]
-                  .map((e) => ServerContainer(
-                      isSelected: homeState.currentServer == e.id,
-                      child: ServerIcon(
-                        serverData: e,
-                        onTap: () {
-                          context.read<HomeState>().choiceServer(e.id);
-                        },
-                      )))
-                  .toList()
-            ],
-          ),
-        ),
+        serverBar(homeState, context),
         Expanded(
           child: _serverCard(homeState.currentServer),
         )
       ],
+    );
+  }
+
+  SizedBox serverBar(HomeState homeState, BuildContext context) {
+    return SizedBox(
+      width: 60,
+      child: ListView(
+        children: [
+          const SizedBox(height: 8),
+          ServerContainer(
+              isSelected: homeState.currentServer == "encripted",
+              child: EncriptedServerIcon(
+                onTap: () {
+                  context.read<HomeState>().choiceServer('encripted');
+                },
+              )),
+          ServerContainer(
+              isSelected: homeState.currentServer == 'global',
+              child: GlobalServerIcon(
+                onTap: () {
+                  context.read<HomeState>().choiceServer('global');
+                },
+              )),
+          ...[AppUserServer(id: "id", name: "name", iconUrl: "iconUrl")]
+              .map((e) => ServerContainer(
+                  isSelected: homeState.currentServer == e.id,
+                  child: ServerIcon(
+                    serverData: e,
+                    onTap: () {
+                      context.read<HomeState>().choiceServer(e.id);
+                    },
+                  )))
+              .toList()
+        ],
+      ),
     );
   }
 
