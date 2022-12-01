@@ -1,7 +1,5 @@
 import 'package:discord_clone/models/appuser/entity.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/src/widgets/container.dart';
-import 'package:flutter/src/widgets/framework.dart';
 
 class ServerIcon extends StatelessWidget {
   final AppUserServer serverData;

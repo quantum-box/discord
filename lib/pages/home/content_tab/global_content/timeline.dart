@@ -1,3 +1,4 @@
+import 'package:discord_clone/constants/theme.dart';
 import 'package:discord_clone/models/home/state.dart';
 import 'package:discord_clone/models/tweet/datasource.dart';
 import 'package:discord_clone/models/tweet/entity.dart';
@@ -19,41 +20,43 @@ class TimelineTab extends HookWidget {
       return Container();
     }
     final controller = useTextEditingController();
+    final tweets = useState<List<TweetEntity>>([]);
+
+    Future<void> fetchTweets() async {
+      final res = await TweetDatasource(user.uid).fetchAllList([
+        'YZ02tTfPePZRO9Rk7gqiPy8QIGd2',
+        'RfgRitwAiGUtpRvqzSBIplPyNEY2',
+        'FJD3g10KUPh0vlA6xGeq1pA3C0Z2'
+      ]);
+      tweets.value = res;
+    }
+
+    useEffect(() {
+      fetchTweets();
+    }, []);
 
     return Column(
       mainAxisAlignment: MainAxisAlignment.center,
       children: <Widget>[
-        MediaQuery.of(context).size.width > 560
+        MediaQuery.of(context).size.width > kBreakpoint
             ? serverAppBar(context)
             : Container(),
         Expanded(
-          child: StreamBuilder(
-            stream: TweetDatasource(user.uid).streamList(),
-            builder: (context, snapshot) {
-              if (snapshot.data == null) {
-                return const Center(
-                  child: CircularProgressIndicator(),
-                );
-              }
-              if (snapshot.data!.isEmpty) {
-                return const Center(
-                  child: Text("tweets is not found"),
-                );
-              }
-              return Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 16),
-                child: ListView(
-                  children: snapshot.data!
-                      .map((e) => Column(children: [
-                            Tweet(e),
-                            Divider(
-                              color: Colors.grey.shade600,
-                            )
-                          ]))
-                      .toList(),
-                ),
-              );
-            },
+          child: Padding(
+            padding: const EdgeInsets.symme　tric(horizontal: 16),
+            child: RefreshIndicator(
+              onRefresh: fetchTweets,
+              child: ListView(
+                children: tweets.value
+                    .map((e) => Column(children: [
+                          Tweet(e),
+                          Divider(
+                            color: Colors.grey.shade600,
+                          )
+                        ]))
+                    .toList(),
+              ),
+            ),
           ),
         ),
         SizedBox(
@@ -73,14 +76,14 @@ class TimelineTab extends HookWidget {
                   child: ElevatedButton(
                     onPressed: () async {
                       print("object");
-                      // if (controller.text == "") {
-                      //   ScaffoldMessenger.of(context)
-                      //       .showSnackBar(const SnackBar(
-                      //     content: Text("form required"),
-                      //     backgroundColor: Colors.red,
-                      //   ));
-                      //   return;
-                      // }
+                      if (controller.text == "") {
+                        ScaffoldMessenger.of(context)
+                            .showSnackBar(const SnackBar(
+                          content: Text("form required"),
+                          backgroundColor: Colors.red,
+                        ));
+                        return;
+                      }
                       await TweetDatasource(user.uid).add(TweetEntity(
                           id: Ulid().toString(),
                           userId: user.uid,
@@ -88,6 +91,10 @@ class TimelineTab extends HookWidget {
                           text: controller.text,
                           sortNo: DateTime.now().microsecondsSinceEpoch));
                       controller.clear();
+                      ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
+                        content: Text("Posteds"),
+                        backgroundColor: Colors.blue,
+                      ));
                     },
                     style: ElevatedButton.styleFrom(
                       backgroundColor: Colors.deepOrange,

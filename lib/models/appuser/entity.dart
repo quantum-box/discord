@@ -5,12 +5,13 @@ class AppUser {
   final String id;
   final String displayName;
 
-  final List<AppUserServer>? servers;
+  //
+  final List<AppUserServer> servers;
 
   const AppUser({
     required this.id,
     required this.displayName,
-    this.servers,
+    this.servers = const [],
   });
 
   factory AppUser.fromMap(Map map) => AppUser(
@@ -22,9 +23,17 @@ class AppUser {
   Map<String, dynamic> toMap() => {
         'id': id,
         'displayName': displayName,
-        "servers":
-            servers != null ? servers!.map((e) => e.toMap()).toList() : null,
+        "servers": servers.map((e) => e.toMap()).toList(),
       };
+
+  AppUser copyWith(String? displayName, List<AppUserServer>? servers) =>
+      AppUser(
+          id: id,
+          displayName: displayName ?? this.displayName,
+          servers: servers ?? this.servers);
+
+  AppUser addNewServer(AppUserServer server) =>
+      AppUser(id: id, displayName: displayName, servers: [...servers, server]);
 }
 
 class AppUserServer {

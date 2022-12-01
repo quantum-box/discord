@@ -32,6 +32,7 @@ class SignUpPage extends HookWidget {
         if (user == null) {
           return;
         }
+        await user.updateDisplayName(displayNameController.text);
         appUserState.signIn(user?.uid ?? "", user.displayName ?? '');
       } on FirebaseAuthException catch (e) {
         print(e.code);
@@ -68,6 +69,17 @@ class SignUpPage extends HookWidget {
                 child: Column(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
+                    TextFormField(
+                      controller: displayNameController,
+                      decoration:
+                          const InputDecoration(labelText: "Display name"),
+                      validator: (value) {
+                        if (value == null || value.isEmpty) {
+                          return 'Please enter some text';
+                        }
+                        return null;
+                      },
+                    ),
                     TextFormField(
                       controller: emailController,
                       decoration: const InputDecoration(labelText: "Email"),

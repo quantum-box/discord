@@ -1,12 +1,13 @@
+import 'package:discord_clone/constants/theme.dart';
 import 'package:discord_clone/models/appuser/datasource.dart';
-import 'package:discord_clone/pages/home/status_tab.dart';
+import 'package:discord_clone/pages/home/status_tab/status_tab.dart';
 import 'package:discord_clone/parts/layout.dart';
 import 'package:discord_clone/models/appuser/entity.dart';
 import 'package:discord_clone/models/home/state.dart';
 import 'package:discord_clone/models/tweet/datasource.dart';
-import 'package:discord_clone/pages/home/server_tab.dart';
+import 'package:discord_clone/pages/home/server_tab/server_tab.dart';
 
-import 'package:discord_clone/pages/home/content_tab.dart';
+import 'package:discord_clone/pages/home/content_tab/content_tab.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
@@ -28,7 +29,7 @@ class HomePage extends HookWidget {
           StreamProvider<List<TweetEntity>>(
               create: ((context) =>
                   TweetDatasource(context.watch<User>().uid).streamList()),
-              initialData: const [])
+              initialData: const []),
         ],
         child: const HomePage(),
       );
@@ -39,7 +40,7 @@ class HomePage extends HookWidget {
     final appuser = context.watch<AppUser?>();
     return Layout(
       title: context.watch<HomeState>().currentChannel,
-      child: width > 560
+      child: width > kBreakpoint
           ? Row(
               children: const [
                 SizedBox(width: 300, child: MenuTab()),

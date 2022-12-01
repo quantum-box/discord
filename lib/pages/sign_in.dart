@@ -16,7 +16,6 @@ class SignInPage extends HookWidget {
   Widget build(BuildContext context) {
     final emailController = useTextEditingController();
     final passwordController = useTextEditingController();
-    final displayNameController = useTextEditingController();
     final appUserState = context.read<AppUserState>();
 
     Future<void> signIn() async {
@@ -28,7 +27,6 @@ class SignInPage extends HookWidget {
         if (user == null) {
           return;
         }
-        await user.updateDisplayName(displayNameController.text);
         appUserState.signIn(user?.uid ?? "", user.displayName ?? '');
       } catch (e) {
         print(e);
@@ -54,18 +52,8 @@ class SignInPage extends HookWidget {
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
                     TextFormField(
-                      controller: displayNameController,
-                      decoration:
-                          const InputDecoration(labelText: "Display name"),
-                      validator: (value) {
-                        if (value == null || value.isEmpty) {
-                          return 'Please enter some text';
-                        }
-                        return null;
-                      },
-                    ),
-                    TextFormField(
                       controller: emailController,
+                      autofillHints: const [AutofillHints.email],
                       decoration: const InputDecoration(labelText: "Email"),
                       validator: (value) {
                         if (value == null || value.isEmpty) {
@@ -78,6 +66,7 @@ class SignInPage extends HookWidget {
                     TextFormField(
                       controller: passwordController,
                       obscureText: true,
+                      autofillHints: const [AutofillHints.password],
                       decoration: const InputDecoration(labelText: "Password"),
                       validator: (value) {
                         if (value == null || value.isEmpty) {

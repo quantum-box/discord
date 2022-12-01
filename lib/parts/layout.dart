@@ -1,3 +1,4 @@
+import 'package:discord_clone/constants/theme.dart';
 import 'package:flutter/material.dart';
 
 class Layout extends StatelessWidget {
@@ -15,7 +16,7 @@ class Layout extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: MediaQuery.of(context).size.width > 560
+      appBar: MediaQuery.of(context).size.width > kBreakpoint
           ? null
           : AppBar(
               title: Text(title),

@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 
+import '../channel/entity.dart';
 import 'entity.dart';
 
 class ServerCard extends StatelessWidget {
@@ -60,7 +61,7 @@ class ServerCard extends StatelessWidget {
 }
 
 class ChannelItem extends StatelessWidget {
-  final ServerChannelEntity data;
+  final ChannelEntity data;
   const ChannelItem({super.key, required this.data});
 
   @override
