@@ -37,8 +37,6 @@ class HomePage extends HookWidget {
   @override
   Widget build(BuildContext context) {
     final width = MediaQuery.of(context).size.width;
-    final appuser = context.watch<AppUser?>();
-    print(appuser);
     return Layout(
       title: context.watch<HomeState>().currentChannel,
       child: width > kBreakpoint

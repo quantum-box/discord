@@ -17,10 +17,12 @@ class ServerEntity {
 
   factory ServerEntity.fromMap(Map map) => ServerEntity(
         id: map["id"],
-        name: map["name"],
-        channels: (map["channels"] as List<Map>)
-            .map((e) => ChannelEntity.fromMap(e))
-            .toList(),
+        name: map["name"] ?? "",
+        channels: map["channels"] == null || map["channels"] == []
+            ? []
+            : (map["channels"] as List)
+                .map((e) => ChannelEntity.fromMap(e))
+                .toList(),
       );
 
   factory ServerEntity.defaultValue(String name) =>

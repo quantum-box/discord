@@ -67,8 +67,7 @@ class ThemeProvider extends StatelessWidget {
           if (user == null) {
             return "/auth/sign_in";
           }
-          AppUserDatasource(user.uid)
-              .upsert(AppUser(id: user.uid, displayName: user.uid));
+
           return "/";
         },
         routes: <RouteBase>[

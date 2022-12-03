@@ -6,7 +6,12 @@ import 'package:ulid/ulid.dart';
 class HomeState extends ChangeNotifier {
   String currentServer;
   String currentChannel;
-  HomeState({this.currentServer = 'global', this.currentChannel = 'timeline'});
+  HomeState({
+    // this.currentServer = 'global',
+    this.currentServer = 's-0003cd5r36dk113xkbqs03ycmn',
+    // this.currentChannel = 'timeline',
+    this.currentChannel = 'c-0003cd5r37my3mtv09yjpagwvd',
+  });
 
   void choiceServer(String server) {
     currentServer = server;

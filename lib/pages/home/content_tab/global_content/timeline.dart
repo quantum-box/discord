@@ -81,7 +81,6 @@ class TimelineTab extends HookWidget {
                   height: 48,
                   child: ElevatedButton(
                     onPressed: () async {
-                      print("object");
                       if (controller.text == "") {
                         ScaffoldMessenger.of(context)
                             .showSnackBar(const SnackBar(

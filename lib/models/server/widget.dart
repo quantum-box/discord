@@ -1,9 +1,12 @@
+import 'package:discord_clone/models/home/state.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_hooks/flutter_hooks.dart';
+import 'package:provider/provider.dart';
 
 import '../channel/entity.dart';
 import 'entity.dart';
 
-class ServerCard extends StatelessWidget {
+class ServerCard extends HookWidget {
   final ServerEntity serverData;
   const ServerCard({
     Key? key,
@@ -50,8 +53,17 @@ class ServerCard extends StatelessWidget {
                     style: TextStyle(color: Colors.white),
                   ),
                 ),
+                const SizedBox(height: 16),
                 ...serverData.channels
-                    .map((e) => ChannelItem(data: e))
+                    .map((e) => ChannelItem(
+                          onPress: () async {
+                            final vm = context.read<HomeState>();
+                            vm.choiceChannel(e.id);
+                          },
+                          data: e,
+                          selected:
+                              context.watch<HomeState>().currentChannel == e.id,
+                        ))
                     .toList(),
               ],
             )),
@@ -61,18 +73,36 @@ class ServerCard extends StatelessWidget {
 }
 
 class ChannelItem extends StatelessWidget {
+  const ChannelItem({
+    super.key,
+    required this.data,
+    required this.selected,
+    required this.onPress,
+  });
+
   final ChannelEntity data;
-  const ChannelItem({super.key, required this.data});
+  final bool selected;
+  final VoidCallback onPress;
 
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
-        child: Padding(
-      padding: const EdgeInsets.all(8.0),
-      child: Text(
-        "# ${data.name}",
-        style: TextStyle(fontSize: 18, color: Colors.grey.shade200),
-      ),
-    ));
+        onTap: onPress,
+        child: ClipRRect(
+          borderRadius: BorderRadius.circular(8),
+          child: Container(
+            color: selected ? Colors.blueGrey.shade700 : Colors.transparent,
+            child: Padding(
+              padding: const EdgeInsets.all(8.0),
+              child: Text(
+                "# ${data.name}",
+                style: TextStyle(
+                  fontSize: 18,
+                  color: selected ? Colors.white : Colors.blueGrey.shade300,
+                ),
+              ),
+            ),
+          ),
+        ));
   }
 }

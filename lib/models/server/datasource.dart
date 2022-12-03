@@ -3,7 +3,7 @@ import 'package:discord_clone/models/server/entity.dart';
 
 class ServerDatasource {
   final DocumentReference collection;
-  static path(String serverId) => "/servers/$serverId";
+  static path(String serverId) => "servers/$serverId";
 
   ServerDatasource(String serverId)
       : collection =
