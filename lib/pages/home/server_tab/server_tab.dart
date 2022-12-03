@@ -169,6 +169,7 @@ class ServerBar extends HookWidget {
   @override
   Widget build(BuildContext context) {
     final appuser = context.watch<AppUser?>();
+    print("-----");
     print(appuser);
 
     return SizedBox(
@@ -213,7 +214,7 @@ class ServerBar extends HookWidget {
               showDialog(
                   context: context,
                   builder: (context) {
-                    return const ServerDialog();
+                    return ServerDialog(appuser: appuser!);
                   });
             }),
           ),
@@ -224,12 +225,14 @@ class ServerBar extends HookWidget {
 }
 
 class ServerDialog extends HookWidget {
-  const ServerDialog({super.key});
+  final AppUser appuser;
+
+  const ServerDialog({super.key, required this.appuser});
 
   @override
   Widget build(BuildContext context) {
     final controller = useTextEditingController();
-    final appuser = context.watch<AppUser>();
+
     return SimpleDialog(
       title: const Text("Create server"),
       contentPadding: const EdgeInsets.all(16),
@@ -244,12 +247,14 @@ class ServerDialog extends HookWidget {
           onPressed: () async {
             if (controller.text == "") return;
             final server = ServerEntity.defaultValue(controller.text);
-            // create server
-            await ServerDatasource(server.id).upsert(server);
+
             // appuser
             appuser.addNewServer(
                 AppUserServer(id: server.id, name: server.name, iconUrl: ""));
+            print(appuser.toMap());
+            await ServerDatasource(server.id).upsert(server);
             await AppUserDatasource(appuser.id).upsert(appuser);
+            Navigator.pop(context);
           },
           child: const Text("create server"),
         )

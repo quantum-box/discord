@@ -8,9 +8,8 @@ class AppUserDatasource {
       : collection =
             FirebaseFirestore.instance.collection('appusers').doc(userId);
 
-  Stream<AppUser> streamObject() => collection
-      .snapshots()
-      .map((event) => AppUser.fromMap(event.data() as Map));
+  Stream<AppUser> streamObject() =>
+      collection.snapshots().map((e) => AppUser.fromMap(e.data() as Map));
 
   Future<void> upsert(AppUser entity) => collection.set(entity.toMap());
 }

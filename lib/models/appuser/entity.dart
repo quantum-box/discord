@@ -17,7 +17,11 @@ class AppUser {
   factory AppUser.fromMap(Map map) => AppUser(
         id: map['id'],
         displayName: map['displayName'],
-        servers: map['servers'],
+        servers: map["servers"] == null || map["servers"] == []
+            ? []
+            : (map["servers"] as List<dynamic>)
+                .map((e) => AppUserServer.fromMap(e))
+                .toList(),
       );
 
   Map<String, dynamic> toMap() => {
@@ -32,8 +36,10 @@ class AppUser {
           displayName: displayName ?? this.displayName,
           servers: servers ?? this.servers);
 
-  AppUser addNewServer(AppUserServer server) =>
-      AppUser(id: id, displayName: displayName, servers: [...servers, server]);
+  AppUser addNewServer(AppUserServer server) {
+    servers.add(server);
+    return AppUser(id: id, displayName: displayName, servers: servers);
+  }
 }
 
 class AppUserServer {

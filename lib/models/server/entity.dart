@@ -29,7 +29,7 @@ class ServerEntity {
         ChannelEntity(id: ChannelEntity.generateId(), name: "random")
       ]);
 
-  Map toMap() => {
+  Map<String, dynamic> toMap() => {
         "id": id,
         "name": name,
         "channels": channels.map((e) => e.toMap()).toList(),

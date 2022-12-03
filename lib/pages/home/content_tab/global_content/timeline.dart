@@ -23,16 +23,22 @@ class TimelineTab extends HookWidget {
     final tweets = useState<List<TweetEntity>>([]);
 
     Future<void> fetchTweets() async {
-      final res = await TweetDatasource(user.uid).fetchAllList([
-        'YZ02tTfPePZRO9Rk7gqiPy8QIGd2',
-        'RfgRitwAiGUtpRvqzSBIplPyNEY2',
-        'FJD3g10KUPh0vlA6xGeq1pA3C0Z2'
-      ]);
-      tweets.value = res;
+      try {
+        final res = await TweetDatasource(user.uid).fetchAllList([
+          'YZ02tTfPePZRO9Rk7gqiPy8QIGd2',
+          'RfgRitwAiGUtpRvqzSBIplPyNEY2',
+          'FJD3g10KUPh0vlA6xGeq1pA3C0Z2'
+        ]);
+        tweets.value = res;
+      } catch (e) {
+        print(e);
+      }
     }
 
     useEffect(() {
-      fetchTweets();
+      if (tweets.value.isEmpty) {
+        fetchTweets();
+      }
     }, []);
 
     return Column(
@@ -43,7 +49,7 @@ class TimelineTab extends HookWidget {
             : Container(),
         Expanded(
           child: Padding(
-            padding: const EdgeInsets.symme　tric(horizontal: 16),
+            padding: const EdgeInsets.symmetric(horizontal: 16),
             child: RefreshIndicator(
               onRefresh: fetchTweets,
               child: ListView(

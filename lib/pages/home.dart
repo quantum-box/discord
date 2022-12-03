@@ -23,12 +23,12 @@ class HomePage extends HookWidget {
             create: (context) => HomeState(),
             child: const HomePage(),
           ),
+          // TODO: This provider occurred error
           StreamProvider<AppUser?>(
               create: ((context) => AppUserDatasource(uid).streamObject()),
               initialData: null),
           StreamProvider<List<TweetEntity>>(
-              create: ((context) =>
-                  TweetDatasource(context.watch<User>().uid).streamList()),
+              create: ((context) => TweetDatasource(uid).streamList()),
               initialData: const []),
         ],
         child: const HomePage(),
@@ -38,6 +38,7 @@ class HomePage extends HookWidget {
   Widget build(BuildContext context) {
     final width = MediaQuery.of(context).size.width;
     final appuser = context.watch<AppUser?>();
+    print(appuser);
     return Layout(
       title: context.watch<HomeState>().currentChannel,
       child: width > kBreakpoint
