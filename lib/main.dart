@@ -1,7 +1,8 @@
 import 'package:discord_clone/models/appuser/datasource.dart';
 import 'package:discord_clone/models/appuser/state.dart';
+import 'package:discord_clone/pages/invite.dart';
 import 'package:discord_clone/pages/sign_in.dart';
-import 'package:discord_clone/pages/home.dart';
+import 'package:discord_clone/pages/home/home.dart';
 import 'package:discord_clone/pages/sign_up.dart';
 import 'package:flutter/material.dart';
 
@@ -63,12 +64,18 @@ class ThemeProvider extends StatelessWidget {
       routerConfig: GoRouter(
         initialLocation: "/",
         redirect: (context, state) {
-          final user = context.watch<User?>();
+          print(state.subloc);
+          final fromp = state.subloc == '/' ? '' : '?from=${state.subloc}';
+
+          final user = context.read<User?>();
           if (user == null) {
-            return "/auth/sign_in";
+            if (state.subloc == '/auth/sign_up') {
+              return '/auth/sign_up';
+            }
+            return "/auth/sign_in$fromp";
           }
 
-          return "/";
+          return state.queryParams['from'];
         },
         routes: <RouteBase>[
           GoRoute(
@@ -83,6 +90,15 @@ class ThemeProvider extends StatelessWidget {
           GoRoute(
             path: '/auth/sign_up',
             builder: (context, state) => SignUpPage(),
+          ),
+          GoRoute(
+            path: '/invite/:inviteId',
+            builder: (context, state) {
+              final inviteId = state.params['inviteId'];
+              return InvitePage(
+                inviteId: inviteId,
+              );
+            },
           )
         ],
       ),

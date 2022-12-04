@@ -1,5 +1,6 @@
 import 'package:discord_clone/parts/text_field.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 
 class SendMessageForm extends StatelessWidget {
   const SendMessageForm({
@@ -21,8 +22,15 @@ class SendMessageForm extends StatelessWidget {
         child: Row(
           children: [
             Expanded(
-              child: NTextField(
-                controller: controller,
+              child: Shortcuts(
+                shortcuts: <LogicalKeySet, Intent>{
+                  LogicalKeySet(
+                          LogicalKeyboardKey.enter, LogicalKeyboardKey.meta):
+                      VoidCallbackIntent(onSubmit),
+                },
+                child: NTextField(
+                  controller: controller,
+                ),
               ),
             ),
             const SizedBox(width: 8),

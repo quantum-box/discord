@@ -11,5 +11,8 @@ class AppUserDatasource {
   Stream<AppUser> streamObject() =>
       collection.snapshots().map((e) => AppUser.fromMap(e.data() as Map));
 
+  Future<AppUser> fetchObject() => collection.get().then(
+        (value) => AppUser.fromMap(value.data() as Map),
+      );
   Future<void> upsert(AppUser entity) => collection.set(entity.toMap());
 }

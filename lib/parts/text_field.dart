@@ -10,6 +10,7 @@ class NTextField extends StatelessWidget {
     return SizedBox(
       height: 48,
       child: TextField(
+        textInputAction: TextInputAction.none,
         controller: controller,
         decoration: InputDecoration(
           labelText: "send message",

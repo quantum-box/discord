@@ -42,21 +42,14 @@ class ServerContentTab extends HookWidget {
           controller: controller,
           onSubmit: () async {
             if (controller.text == "") {
-              ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
-                content: Text("form required"),
-                backgroundColor: Colors.red,
-              ));
               return;
             }
+            final text = controller.text;
+            controller.clear();
             final user = context.read<AppUser>();
             MessageDatasource(serverId, channelId).upsert(
                 MessageEntity.defaultValue(
-                    user.id, user.displayName, '', controller.text));
-
-            ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
-              content: Text("Posteds"),
-              backgroundColor: Colors.blue,
-            ));
+                    user.id, user.displayName, '', text));
           },
         )
       ],

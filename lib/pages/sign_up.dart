@@ -1,3 +1,5 @@
+import 'package:discord_clone/models/appuser/datasource.dart';
+import 'package:discord_clone/models/appuser/entity.dart';
 import 'package:discord_clone/parts/layout.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
@@ -33,7 +35,9 @@ class SignUpPage extends HookWidget {
           return;
         }
         await user.updateDisplayName(displayNameController.text);
-        appUserState.signIn(user?.uid ?? "", user.displayName ?? '');
+        await AppUserDatasource(user.uid).upsert(
+            AppUser(id: user.uid, displayName: displayNameController.text));
+        appUserState.signIn(user.uid, displayNameController.text);
       } on FirebaseAuthException catch (e) {
         print(e.code);
         if (e.code == 'weak-password') {

@@ -1,7 +1,10 @@
 import 'package:discord_clone/models/home/state.dart';
+import 'package:discord_clone/models/invitation/datasource.dart';
+import 'package:discord_clone/models/invitation/entity.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:provider/provider.dart';
+import 'package:ulid/ulid.dart';
 
 import '../channel/entity.dart';
 import 'entity.dart';
@@ -45,7 +48,32 @@ class ServerCard extends HookWidget {
                 ),
                 const SizedBox(height: 8),
                 ElevatedButton(
-                  onPressed: () {},
+                  onPressed: () async {
+                    // invitation
+                    final invitation = InvitationEntity(
+                        id: Ulid().toString(),
+                        sortNo: DateTime.now().microsecondsSinceEpoch,
+                        serverName: serverData.name,
+                        serverId: serverData.id,
+                        serverImageUrl: '');
+                    await InvitataionDatasource(invitation.id)
+                        .upsert(invitation);
+                    showDialog(
+                        context: context,
+                        builder: ((context) => SimpleDialog(
+                              contentPadding: const EdgeInsets.all(16),
+                              children: [
+                                Text("invitation"),
+                                SelectableText(
+                                    'https://nextsns-39cd7.web.app/#/invitation/${invitation.id}'),
+                                ElevatedButton(
+                                    onPressed: () {
+                                      Navigator.of(context).pop();
+                                    },
+                                    child: const Text('close'))
+                              ],
+                            )));
+                  },
                   style: ElevatedButton.styleFrom(
                       backgroundColor: Colors.grey.shade700),
                   child: const Text(
