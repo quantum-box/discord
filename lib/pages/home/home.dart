@@ -8,7 +8,6 @@ import 'package:discord_clone/models/tweet/datasource.dart';
 import 'package:discord_clone/pages/home/server_tab/server_tab.dart';
 
 import 'package:discord_clone/pages/home/content_tab/content_tab.dart';
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 
@@ -23,7 +22,6 @@ class HomePage extends HookWidget {
             create: (context) => HomeState(),
             child: const HomePage(),
           ),
-          // TODO: This provider occurred error
           StreamProvider<AppUser?>(
               create: ((context) => AppUserDatasource(uid).streamObject()),
               initialData: null),

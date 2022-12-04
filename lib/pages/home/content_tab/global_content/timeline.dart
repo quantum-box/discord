@@ -15,10 +15,7 @@ class TimelineTab extends HookWidget {
 
   @override
   Widget build(BuildContext context) {
-    final user = context.watch<User?>();
-    if (user == null) {
-      return Container();
-    }
+    final user = context.watch<User>();
     final controller = useTextEditingController();
     final tweets = useState<List<TweetEntity>>([]);
 

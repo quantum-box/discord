@@ -42,6 +42,7 @@ class ServerBar extends HookWidget {
               child: GlobalServerIcon(
                 onTap: () {
                   context.read<HomeState>().choiceServer('global');
+                  context.read<HomeState>().choiceChannel('timeline');
                 },
               )),
           appuser == null

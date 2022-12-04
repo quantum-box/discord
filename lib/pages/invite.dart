@@ -23,7 +23,7 @@ class InvitePage extends HookWidget {
         useFuture(InvitataionDatasource(inviteId!).fetchObject());
 
     if (inviteId == null || !invitationFuture.hasData) {
-      return Scaffold(
+      return const Scaffold(
         body: Center(child: Text("not found")),
       );
     }

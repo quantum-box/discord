@@ -13,7 +13,7 @@ class StatusTab extends StatelessWidget {
           padding: const EdgeInsets.symmetric(vertical: 16),
           child: Column(
             mainAxisSize: MainAxisSize.max,
-            children: [
+            children: const [
               Text('status'),
             ],
           ),

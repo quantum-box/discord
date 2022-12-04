@@ -2,6 +2,7 @@ import 'package:discord_clone/models/home/state.dart';
 import 'package:discord_clone/models/invitation/datasource.dart';
 import 'package:discord_clone/models/invitation/entity.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:provider/provider.dart';
 import 'package:ulid/ulid.dart';
@@ -65,7 +66,20 @@ class ServerCard extends HookWidget {
                               children: [
                                 Text("invitation"),
                                 SelectableText(
-                                    'https://nextsns-39cd7.web.app/#/invitation/${invitation.id}'),
+                                    'https://nextsns-39cd7.web.app/#/invite/${invitation.id}'),
+                                IconButton(
+                                    onPressed: () async {
+                                      await Clipboard.setData(ClipboardData(
+                                          text:
+                                              'https://nextsns-39cd7.web.app/#/invite/${invitation.id}'));
+                                      ScaffoldMessenger.of(context)
+                                          .showSnackBar(const SnackBar(
+                                        content: Text("Copy"),
+                                        backgroundColor: Colors.blue,
+                                      ));
+                                    },
+                                    icon: const Icon(Icons.copy)),
+                                const SizedBox(height: 16),
                                 ElevatedButton(
                                     onPressed: () {
                                       Navigator.of(context).pop();
