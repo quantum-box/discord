@@ -16,10 +16,12 @@ class ServerBar extends HookWidget {
     Key? key,
     required this.homeState,
     required this.context,
+    required this.onChange,
   }) : super(key: key);
 
   final HomeState homeState;
   final BuildContext context;
+  final void Function(String currentServer) onChange;
 
   @override
   Widget build(BuildContext context) {
@@ -34,15 +36,15 @@ class ServerBar extends HookWidget {
               isSelected: homeState.currentServer == "encripted",
               child: EncriptedServerIcon(
                 onTap: () {
-                  context.read<HomeState>().choiceServer('encripted');
+                  onChange("encripted");
                 },
               )),
           ServerContainer(
               isSelected: homeState.currentServer == 'global',
               child: GlobalServerIcon(
                 onTap: () {
-                  context.read<HomeState>().choiceServer('global');
-                  context.read<HomeState>().choiceChannel('timeline');
+                  onChange("global");
+                  // context.read<HomeState>().choiceChannel('timeline');
                 },
               )),
           appuser == null
@@ -54,9 +56,7 @@ class ServerBar extends HookWidget {
                           isSelected: homeState.currentServer == e.id,
                           child: ServerIcon(
                             serverData: e,
-                            onTap: () {
-                              context.read<HomeState>().choiceServer(e.id);
-                            },
+                            onTap: () => onChange(e.id),
                           ),
                         ),
                       )

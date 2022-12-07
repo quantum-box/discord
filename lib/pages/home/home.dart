@@ -1,6 +1,6 @@
 import 'package:discord_clone/constants/theme.dart';
 import 'package:discord_clone/models/appuser/datasource.dart';
-import 'package:discord_clone/pages/home/status_tab/status_tab.dart';
+import 'package:discord_clone/pages/home/status_tab.dart';
 import 'package:discord_clone/parts/layout.dart';
 import 'package:discord_clone/models/appuser/entity.dart';
 import 'package:discord_clone/models/home/state.dart';
@@ -32,6 +32,7 @@ class HomePage extends HookWidget {
         child: const HomePage(),
       );
   const HomePage({super.key});
+
   @override
   Widget build(BuildContext context) {
     final width = MediaQuery.of(context).size.width;
@@ -42,7 +43,7 @@ class HomePage extends HookWidget {
               children: const [
                 SizedBox(width: 300, child: MenuTab()),
                 Expanded(child: ContentTab()),
-                StatusTab(width: 300)
+                StatusTab(width: 400)
               ],
             )
           : const DefaultTabController(

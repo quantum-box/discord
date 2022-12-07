@@ -1,5 +1,3 @@
-import 'package:discord_clone/models/entity.dart';
-
 class HomeEntity {
   final String id;
   final int? sortNo;

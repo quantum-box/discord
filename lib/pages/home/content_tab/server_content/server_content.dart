@@ -32,7 +32,10 @@ class ServerContentTab extends HookWidget {
             child: messages.hasData
                 ? ListView(
                     children: messages.data!
-                        .map((e) => ServerMessage(data: e))
+                        .map((e) => ServerMessage(
+                              data: e,
+                              onSammarized: () {},
+                            ))
                         .toList(),
                   )
                 : const Center(child: CircularProgressIndicator())),

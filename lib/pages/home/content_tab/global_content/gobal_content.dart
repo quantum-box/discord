@@ -4,7 +4,7 @@ import 'package:flutter/material.dart';
 
 import 'package:provider/provider.dart';
 
-import 'global_content/timeline.dart';
+import 'timeline.dart';
 
 class GlobalServerTab extends StatelessWidget {
   const GlobalServerTab({super.key});

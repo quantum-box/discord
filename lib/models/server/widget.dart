@@ -129,22 +129,23 @@ class ChannelItem extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
-        onTap: onPress,
-        child: ClipRRect(
-          borderRadius: BorderRadius.circular(8),
-          child: Container(
-            color: selected ? Colors.blueGrey.shade700 : Colors.transparent,
-            child: Padding(
-              padding: const EdgeInsets.all(8.0),
-              child: Text(
-                "# ${data.name}",
-                style: TextStyle(
-                  fontSize: 18,
-                  color: selected ? Colors.white : Colors.blueGrey.shade300,
-                ),
+      onTap: onPress,
+      child: ClipRRect(
+        borderRadius: BorderRadius.circular(8),
+        child: Container(
+          color: selected ? Colors.blueGrey.shade700 : Colors.transparent,
+          child: Padding(
+            padding: const EdgeInsets.all(8.0),
+            child: Text(
+              "# ${data.name}",
+              style: TextStyle(
+                fontSize: 18,
+                color: selected ? Colors.white : Colors.blueGrey.shade300,
               ),
             ),
           ),
-        ));
+        ),
+      ),
+    );
   }
 }
