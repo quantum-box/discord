@@ -35,8 +35,8 @@ class SignUpPage extends HookWidget {
           return;
         }
         await user.updateDisplayName(displayNameController.text);
-        await AppUserDatasource(user.uid).upsert(
-            AppUser(id: user.uid, displayName: displayNameController.text));
+        await AppUserDatasource(user.uid).upsert(AppUserEntity(
+            id: user.uid, displayName: displayNameController.text));
         appUserState.signIn(user.uid, displayNameController.text);
       } on FirebaseAuthException catch (e) {
         print(e.code);

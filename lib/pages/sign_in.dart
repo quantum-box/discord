@@ -28,8 +28,10 @@ class SignInPage extends HookWidget {
           return;
         }
         appUserState.signIn(user?.uid ?? "", user.displayName ?? '');
-      } catch (e) {
+      } on FirebaseAuthException catch (e) {
         print(e);
+        print(e.message);
+        print(e.stackTrace);
       }
     }
 

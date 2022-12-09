@@ -46,6 +46,7 @@ dependencies:
   cloud_firestore: ^4.1.0
   go_router: ^5.2.0
   ulid: ^2.0.0
+  modal_bottom_sheet: ^2.1.2
 
 dev_dependencies:
   flutter_test:

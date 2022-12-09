@@ -31,10 +31,10 @@
               "client_type": 3
             },
             {
-              "client_id": "418057749611-purm4qn3ebrhrd41qc0v2553q3j7eg56.apps.googleusercontent.com",
+              "client_id": "418057749611-73d0vfqhv2e08tijqns953dr2hv3dtas.apps.googleusercontent.com",
               "client_type": 2,
               "ios_info": {
-                "bundle_id": "com.quantumbox.discordClone"
+                "bundle_id": "com.quantum-box.discordClone"
               }
             }
           ]

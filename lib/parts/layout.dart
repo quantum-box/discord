@@ -16,11 +16,11 @@ class Layout extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: MediaQuery.of(context).size.width > kBreakpoint
-          ? null
-          : AppBar(
-              title: Text(title),
-            ),
+      // appBar: MediaQuery.of(context).size.width > kBreakpoint
+      //     ? null
+      //     : AppBar(
+      //         title: Text(title),
+      //       ),
       body: child,
       floatingActionButton: onFloatingAction != null
           ? FloatingActionButton(

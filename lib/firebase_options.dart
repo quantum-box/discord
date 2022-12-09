@@ -63,12 +63,12 @@ class DefaultFirebaseOptions {
 
   static const FirebaseOptions ios = FirebaseOptions(
     apiKey: 'AIzaSyDhEc7uBYvbj_ZymvZ7UteSBUPd5k2L2TA',
-    appId: '1:418057749611:ios:81676a78d715e81eee9d2e',
+    appId: '1:418057749611:ios:3bf22c15e6820e2bee9d2e',
     messagingSenderId: '418057749611',
     projectId: 'nextsns-39cd7',
     storageBucket: 'nextsns-39cd7.appspot.com',
-    iosClientId: '418057749611-purm4qn3ebrhrd41qc0v2553q3j7eg56.apps.googleusercontent.com',
-    iosBundleId: 'com.quantumbox.discordClone',
+    iosClientId: '418057749611-kd11eiopk88lo4vi2ijtnabovjpjdfe1.apps.googleusercontent.com',
+    iosBundleId: 'com.quantum-box.discordclone',
   );
 
   static const FirebaseOptions macos = FirebaseOptions(

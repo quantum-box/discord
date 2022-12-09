@@ -1,7 +1,4 @@
-import 'package:discord_clone/models/home/entity.dart';
 import 'package:flutter/material.dart';
-import 'package:state_notifier/state_notifier.dart';
-import 'package:ulid/ulid.dart';
 
 class HomeState extends ChangeNotifier {
   String currentServer;
@@ -13,8 +10,9 @@ class HomeState extends ChangeNotifier {
     // this.currentChannel = 'c-0003cd5r37my3mtv09yjpagwvd',
   });
 
-  void choiceServer(String server) {
+  void choiceCurrentServer(String server) {
     currentServer = server;
+    currentChannel = "home";
     notifyListeners();
   }
 

@@ -1,20 +1,20 @@
 import 'package:flutter/material.dart';
 
 @immutable
-class AppUser {
+class AppUserEntity {
   final String id;
   final String displayName;
 
   //
   final List<AppUserServer> servers;
 
-  const AppUser({
+  const AppUserEntity({
     required this.id,
     required this.displayName,
     this.servers = const [],
   });
 
-  factory AppUser.fromMap(Map map) => AppUser(
+  factory AppUserEntity.fromMap(Map map) => AppUserEntity(
         id: map['id'],
         displayName: map['displayName'],
         servers: map["servers"] == null || map["servers"] == []
@@ -30,15 +30,15 @@ class AppUser {
         "servers": servers.map((e) => e.toMap()).toList(),
       };
 
-  AppUser copyWith(String? displayName, List<AppUserServer>? servers) =>
-      AppUser(
+  AppUserEntity copyWith({String? displayName, List<AppUserServer>? servers}) =>
+      AppUserEntity(
           id: id,
           displayName: displayName ?? this.displayName,
           servers: servers ?? this.servers);
 
-  AppUser addNewServer(AppUserServer server) {
+  AppUserEntity addNewServer(AppUserServer server) {
     servers.add(server);
-    return AppUser(id: id, displayName: displayName, servers: servers);
+    return copyWith(servers: servers);
   }
 }
 

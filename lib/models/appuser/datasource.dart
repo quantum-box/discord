@@ -2,17 +2,22 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:discord_clone/models/appuser/entity.dart';
 
 class AppUserDatasource {
-  final DocumentReference collection;
+  final String userId;
 
-  AppUserDatasource(String userId)
-      : collection =
-            FirebaseFirestore.instance.collection('appusers').doc(userId);
+  AppUserDatasource(this.userId);
 
-  Stream<AppUser> streamObject() =>
-      collection.snapshots().map((e) => AppUser.fromMap(e.data() as Map));
+  Stream<AppUserEntity> streamObject() => FirebaseFirestore.instance
+      .collection('appusers')
+      .doc(userId)
+      .snapshots()
+      .map((e) => AppUserEntity.fromMap(e.data() as Map));
 
-  Future<AppUser> fetchObject() => collection.get().then(
-        (value) => AppUser.fromMap(value.data() as Map),
-      );
-  Future<void> upsert(AppUser entity) => collection.set(entity.toMap());
+  Future<AppUserEntity> fetchObject() =>
+      FirebaseFirestore.instance.collection('appusers').doc(userId).get().then(
+            (value) => AppUserEntity.fromMap(value.data() as Map),
+          );
+  Future<void> upsert(AppUserEntity entity) => FirebaseFirestore.instance
+      .collection('appusers')
+      .doc(userId)
+      .set(entity.toMap());
 }

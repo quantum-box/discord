@@ -9,7 +9,7 @@ class MessageDatasource {
             .collection('servers/$serverId/channels/$channelId/messages');
 
   Stream<List<MessageEntity>> streamList() =>
-      collection.orderBy('sortNo').snapshots().map((e) =>
+      collection.orderBy('sortNo', descending: true).snapshots().map((e) =>
           e.docs.map((ev) => MessageEntity.fromMap(ev.data() as Map)).toList());
 
   Future<void> upsert(MessageEntity entity) =>

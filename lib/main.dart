@@ -1,6 +1,7 @@
 import 'package:discord_clone/models/appuser/datasource.dart';
 import 'package:discord_clone/models/appuser/state.dart';
 import 'package:discord_clone/pages/invite.dart';
+import 'package:discord_clone/pages/notfound.dart';
 import 'package:discord_clone/pages/sign_in.dart';
 import 'package:discord_clone/pages/home/home.dart';
 import 'package:discord_clone/pages/sign_up.dart';
@@ -51,6 +52,7 @@ class ThemeProvider extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final user = context.watch<User?>();
+    print(user?.uid);
     return MaterialApp.router(
       title: 'Flutter Demo',
       theme: ThemeData.light(
@@ -62,13 +64,14 @@ class ThemeProvider extends StatelessWidget {
       ),
       themeMode: ThemeMode.dark,
       routerConfig: GoRouter(
-        initialLocation: "/",
+        initialLocation: "/global/timeline",
         redirect: (context, state) {
           print(state.subloc);
-          final fromp = state.subloc == '/' ? '' : '?from=${state.subloc}';
+          final fromp =
+              state.subloc == '' ? '/global/timeline' : '?from=${state.subloc}';
 
           final user = context.read<User?>();
-          if (user == null) {
+          if (user == null || user.uid.isEmpty) {
             if (state.subloc == '/auth/sign_up') {
               return '/auth/sign_up';
             }
@@ -79,17 +82,21 @@ class ThemeProvider extends StatelessWidget {
         },
         routes: <RouteBase>[
           GoRoute(
-            path: "/",
-            builder: (context, state) =>
-                HomePage.withDependecy(user?.uid ?? ''),
-          ),
-          GoRoute(
             path: "/auth/sign_in",
             builder: (context, state) => SignInPage(),
           ),
           GoRoute(
             path: '/auth/sign_up',
             builder: (context, state) => SignUpPage(),
+          ),
+          GoRoute(
+            path: "/:serverId/:channelId",
+            builder: (context, state) {
+              if (user == null || user.uid.isEmpty) {
+                return const NotFoundPage();
+              }
+              return HomePage.withDependecy(user.uid);
+            },
           ),
           GoRoute(
             path: '/invite/:inviteId',

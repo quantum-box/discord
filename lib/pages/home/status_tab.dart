@@ -1,8 +1,9 @@
 import 'package:flutter/material.dart';
 
 class StatusTab extends StatelessWidget {
-  final double? width;
   const StatusTab({super.key, this.width});
+
+  final double? width;
 
   @override
   Widget build(BuildContext context) {

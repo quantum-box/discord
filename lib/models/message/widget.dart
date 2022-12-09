@@ -53,7 +53,12 @@ class ServerMessage extends HookWidget {
                     ],
                   ),
                   const SizedBox(height: 4),
-                  SelectableText(data.message),
+                  Text(
+                    data.message,
+                    softWrap: false,
+                    overflow: TextOverflow.clip,
+                    style: TextStyle(),
+                  ),
                 ],
               )
             ],
