@@ -7,13 +7,16 @@ class ServerMessage extends HookWidget {
   const ServerMessage({
     super.key,
     required this.data,
-    required this.onSammarized,
-    this.sammarized = false,
-  });
+    this.onSummarized,
+    this.onUnsummarized,
+    this.summarized,
+  }) : assert(summarized != null && onSummarized != null,
+            "summarized and onSummarized must be set together");
 
   final MessageEntity data;
-  final VoidCallback onSammarized;
-  final bool sammarized;
+  final VoidCallback? onSummarized;
+  final VoidCallback? onUnsummarized;
+  final bool? summarized;
 
   @override
   Widget build(BuildContext context) {
@@ -63,10 +66,18 @@ class ServerMessage extends HookWidget {
               )
             ],
           ),
-          IconButton(
-            onPressed: onSammarized,
-            icon: const Icon(Icons.bookmark_border),
-          ),
+          summarized == null
+              ? const SizedBox()
+              : IconButton(
+                  onPressed: () {
+                    if (summarized!) {
+                      onUnsummarized!();
+                    } else {
+                      onSummarized!();
+                    }
+                  },
+                  icon: const Icon(Icons.bookmark_border),
+                ),
         ],
       ),
     );

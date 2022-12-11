@@ -2,8 +2,10 @@ import 'package:discord_clone/models/appuser/entity.dart';
 import 'package:discord_clone/models/message/datasource.dart';
 import 'package:discord_clone/models/message/entity.dart';
 import 'package:discord_clone/models/message/widget.dart';
+import 'package:discord_clone/models/summary/datasource.dart';
 import 'package:discord_clone/pages/home/middle_content_tab/community_server_content/parts/send_message_form.dart';
 import 'package:discord_clone/parts/loading.dart';
+import 'package:discord_clone/services/usecases/summarize_interactor.dart';
 import 'package:flutter/material.dart';
 
 import 'package:flutter_hooks/flutter_hooks.dart';
@@ -57,9 +59,19 @@ class ServerContentTab extends HookWidget {
               reverse: true,
               children: data
                   .map((e) => ServerMessage(
-                        data: e,
-                        onSammarized: () {},
-                      ))
+                      data: e,
+                      summarized: e.summary.isNotEmpty,
+                      onSummarized: () => SummerizeInteractor(
+                              SummaryDatasource(serverId, channelId),
+                              MessageDatasource(serverId, channelId))
+                          .pin(e),
+                      onUnsummarized: () {
+                        if (e.summary.isEmpty) return;
+                        SummerizeInteractor(
+                                SummaryDatasource(serverId, channelId),
+                                MessageDatasource(serverId, channelId))
+                            .unpin(e.summary!);
+                      }))
                   .toList()),
         ),
         stream: MessageDatasource(serverId, channelId).streamList,

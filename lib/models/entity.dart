@@ -4,5 +4,5 @@ abstract class EntityBase {
 
   EntityBase({required this.id, required this.sortNo});
 
-  Map<String, dynamic> toMap();
+  Map toMap();
 }

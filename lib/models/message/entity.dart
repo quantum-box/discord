@@ -13,6 +13,8 @@ class MessageEntity implements EntityBase {
   final String ownerImageUrl;
 
   final String message;
+  final String summary;
+
   final DateTime createdAt;
 
   MessageEntity({
@@ -23,6 +25,7 @@ class MessageEntity implements EntityBase {
     required this.ownerImageUrl,
     required this.message,
     required this.createdAt,
+    this.summary = "",
   });
 
   static MessageEntity defaultValue(
@@ -43,8 +46,29 @@ class MessageEntity implements EntityBase {
         ownerName: map['ownerName'],
         ownerImageUrl: map['ownerImageUrl'],
         message: map["message"],
+        summary: map["summaries"] ?? "",
         createdAt: (map["createdAt"] as Timestamp).toDate(),
       );
+
+  MessageEntity copyWith({
+    String? ownerId,
+    String? ownerName,
+    String? ownerImageUrl,
+    String? message,
+    String? summary,
+  }) =>
+      MessageEntity(
+        id: id,
+        sortNo: sortNo,
+        ownerId: ownerId ?? this.ownerId,
+        ownerName: ownerName ?? this.ownerName,
+        ownerImageUrl: ownerImageUrl ?? this.ownerImageUrl,
+        message: message ?? this.message,
+        summary: summary ?? this.summary,
+        createdAt: createdAt,
+      );
+
+  summarized(summaryId) => copyWith(summary: summaryId);
 
   @override
   Map<String, dynamic> toMap() => {
@@ -54,6 +78,7 @@ class MessageEntity implements EntityBase {
         'ownerName': ownerName,
         'ownerImageUrl': ownerImageUrl,
         "message": message,
+        "summary": summary,
         "createdAt": Timestamp.fromDate(createdAt),
       };
 }
