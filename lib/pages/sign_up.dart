@@ -22,7 +22,6 @@ class SignUpPage extends HookWidget {
     final appUserState = context.read<AppUserState>();
 
     Future<void> signUp() async {
-      print("signin");
       if (!formKey.currentState!.validate()) {
         return;
       }

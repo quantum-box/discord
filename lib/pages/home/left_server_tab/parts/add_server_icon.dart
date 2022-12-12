@@ -1,3 +1,4 @@
+import 'package:discord_clone/parts/hover.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 
@@ -7,17 +8,13 @@ class AddServerIcon extends HookWidget {
 
   @override
   Widget build(BuildContext context) {
-    final hover = useState(false);
-    return MouseRegion(
-      cursor: SystemMouseCursors.click,
-      onEnter: (_) => hover.value = true,
-      onExit: (_) => hover.value = false,
-      child: GestureDetector(
+    return HoverBuilder(
+      builder: (context, hover) => GestureDetector(
         onTap: onTap,
         child: ClipRRect(
           borderRadius: BorderRadius.circular(8.0),
           child: Container(
-            color: hover.value ? Colors.grey.shade800 : Colors.black,
+            color: hover ? Colors.grey.shade800 : Colors.black,
             width: 44,
             height: 44,
             child: const Center(

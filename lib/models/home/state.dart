@@ -4,10 +4,8 @@ class HomeState extends ChangeNotifier {
   String currentServer;
   String currentChannel;
   HomeState({
-    this.currentServer = 'global',
-    // this.currentServer = 's-0003cd5r36dk113xkbqs03ycmn',
-    this.currentChannel = 'timeline',
-    // this.currentChannel = 'c-0003cd5r37my3mtv09yjpagwvd',
+    required this.currentServer,
+    required this.currentChannel,
   });
 
   void choiceCurrentServer(String server) {

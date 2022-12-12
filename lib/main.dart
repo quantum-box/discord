@@ -1,4 +1,3 @@
-import 'package:discord_clone/models/appuser/datasource.dart';
 import 'package:discord_clone/models/appuser/state.dart';
 import 'package:discord_clone/pages/invite.dart';
 import 'package:discord_clone/pages/notfound.dart';
@@ -11,8 +10,7 @@ import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter_state_notifier/flutter_state_notifier.dart';
 import 'package:go_router/go_router.dart';
 import 'package:provider/provider.dart';
-import 'package:state_notifier/state_notifier.dart';
-import 'models/appuser/entity.dart';
+
 import 'firebase_options.dart';
 
 import 'package:firebase_auth/firebase_auth.dart';
@@ -52,9 +50,9 @@ class ThemeProvider extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final user = context.watch<User?>();
-    print(user?.uid);
+    // print(user?.uid);
     return MaterialApp.router(
-      title: 'Flutter Demo',
+      title: 'OOS - Organization OS',
       theme: ThemeData.light(
         useMaterial3: true,
         // primarySwatch: Colors.teal,
@@ -64,11 +62,15 @@ class ThemeProvider extends StatelessWidget {
       ),
       themeMode: ThemeMode.dark,
       routerConfig: GoRouter(
-        initialLocation: "/global/timeline",
+        initialLocation:
+            "/s-0003cd5r36dk113xkbqs03ycmn/c-0003cd5r37my3mtv09yjpagwvd",
         redirect: (context, state) {
-          print(state.subloc);
-          final fromp =
-              state.subloc == '' ? '/global/timeline' : '?from=${state.subloc}';
+          final serverId = state.params['serverId'];
+          final channelId = state.params['channelId'];
+          // print(state.subloc);
+          final fromp = state.subloc == ''
+              ? '/$serverId/$channelId'
+              : '?from=${state.subloc}';
 
           final user = context.read<User?>();
           if (user == null || user.uid.isEmpty) {
@@ -92,10 +94,13 @@ class ThemeProvider extends StatelessWidget {
           GoRoute(
             path: "/:serverId/:channelId",
             builder: (context, state) {
+              final serverId = state.params['serverId'];
+              final channelId = state.params['channelId'];
+
               if (user == null || user.uid.isEmpty) {
                 return const NotFoundPage();
               }
-              return HomePage.withDependecy(user.uid);
+              return HomePage.withDependecy(user.uid, serverId, channelId);
             },
           ),
           GoRoute(

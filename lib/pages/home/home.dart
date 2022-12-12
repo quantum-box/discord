@@ -19,10 +19,12 @@ import 'middle_content_tab/global_content/gobal_content.dart';
 import 'middle_content_tab/community_server_content/community_server_content.dart';
 
 class HomePage extends HookWidget {
-  static Widget withDependecy(String uid) => MultiProvider(
+  static Widget withDependecy(String uid, serverId, channelId) => MultiProvider(
         providers: [
           ChangeNotifierProvider(
-              create: (context) => HomeState(), child: const HomePage()),
+              create: (context) =>
+                  HomeState(currentServer: serverId, currentChannel: channelId),
+              child: const HomePage()),
           StreamProvider<AppUserEntity?>(
               create: ((context) => AppUserDatasource(uid).streamObject()),
               initialData: null),
@@ -51,7 +53,7 @@ class HomePage extends HookWidget {
                           .choiceCurrentServer(currentServer);
                     })),
                 Expanded(child: _middleContentTab()),
-                SizedBox(width: 400, child: _rightTabp())
+                SizedBox(width: 600, child: _rightTabp())
               ],
             )
           : DefaultTabController(

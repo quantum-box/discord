@@ -20,4 +20,8 @@ class MessageDatasource implements DataSource<MessageEntity> {
 
   @override
   Future<void> delete(String id) => collection.doc(id).delete();
+
+  @override
+  Future<MessageEntity> fetchObject(String id) async =>
+      MessageEntity.fromMap((await collection.doc(id).get()).data() as Map);
 }

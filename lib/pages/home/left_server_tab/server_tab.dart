@@ -1,6 +1,5 @@
 import 'package:discord_clone/models/home/state.dart';
 import 'package:discord_clone/models/server/datasource.dart';
-import 'package:discord_clone/models/server/entity.dart';
 import 'package:discord_clone/pages/home/left_server_tab/parts/server_card.dart';
 import 'package:discord_clone/pages/home/parts/switch.dart';
 

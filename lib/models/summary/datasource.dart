@@ -20,4 +20,8 @@ class SummaryDatasource implements DataSource<SummaryEntity> {
 
   @override
   Future<void> delete(String id) => collection.doc(id).delete();
+
+  @override
+  Future<SummaryEntity> fetchObject(String id) async =>
+      SummaryEntity.fromMap((await collection.doc(id).get()).data() as Map);
 }

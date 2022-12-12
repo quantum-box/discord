@@ -70,7 +70,7 @@ class ServerContentTab extends HookWidget {
                         SummerizeInteractor(
                                 SummaryDatasource(serverId, channelId),
                                 MessageDatasource(serverId, channelId))
-                            .unpin(e.summary!);
+                            .unpin(e.summary);
                       }))
                   .toList()),
         ),

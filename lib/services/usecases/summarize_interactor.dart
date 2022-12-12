@@ -20,13 +20,19 @@ class SummerizeInteractor {
             ownerId: message.ownerId,
             ownerImageUrl: message.ownerImageUrl,
             ownerDisplayName: message.ownerName));
-    message.summarized(summary.id);
+    final summarisedMessage = message.summarized(summary.id);
 
     await _summaryRepo.upsert(summary);
-    await _messageRepo.upsert(message);
+    await _messageRepo.upsert(summarisedMessage);
   }
 
   Future<void> unpin(String summeryId) async {
-    await _summaryRepo.delete(summeryId);
+    final summery = await _summaryRepo.fetchObject(summeryId);
+    final message = await _messageRepo.fetchObject(summery.message.id);
+
+    final unSummarizedMessage = message.unSummarized();
+
+    await _summaryRepo.delete(summery.id);
+    await _messageRepo.upsert(unSummarizedMessage);
   }
 }

@@ -46,7 +46,7 @@ class MessageEntity implements EntityBase {
         ownerName: map['ownerName'],
         ownerImageUrl: map['ownerImageUrl'],
         message: map["message"],
-        summary: map["summaries"] ?? "",
+        summary: map["summary"] ?? "",
         createdAt: (map["createdAt"] as Timestamp).toDate(),
       );
 
@@ -68,7 +68,8 @@ class MessageEntity implements EntityBase {
         createdAt: createdAt,
       );
 
-  summarized(summaryId) => copyWith(summary: summaryId);
+  MessageEntity summarized(summaryId) => copyWith(summary: summaryId);
+  MessageEntity unSummarized() => copyWith(summary: "");
 
   @override
   Map<String, dynamic> toMap() => {

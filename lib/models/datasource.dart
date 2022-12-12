@@ -4,4 +4,5 @@ abstract class DataSource<T extends EntityBase> {
   Stream<List<T>> streamList();
   Future<void> upsert(T entity);
   Future<void> delete(String id);
+  Future<T> fetchObject(String id);
 }

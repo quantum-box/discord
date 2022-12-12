@@ -5,7 +5,7 @@ import './entity.dart';
 
 class Tweet extends HookWidget {
   final TweetEntity entity;
-  const Tweet(this.entity);
+  const Tweet(this.entity, {super.key});
 
   @override
   Widget build(BuildContext context) {
